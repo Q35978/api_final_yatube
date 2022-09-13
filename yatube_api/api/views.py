@@ -17,10 +17,21 @@ from .serializers import (
 )
 
 
+class CustomViewSet(
+        mixins.ListModelMixin,
+        mixins.CreateModelMixin,
+        viewsets.GenericViewSet
+):
+    pass
+
+
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (IsAuthorOrReadOnlyPermission, )
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        IsAuthorOrReadOnlyPermission,
+    )
     pagination_class = pagination.LimitOffsetPagination
 
     def perform_create(self, serializer):
@@ -30,17 +41,21 @@ class PostViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = (IsAuthorOrReadOnlyPermission,)
-    pagination_class = None
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+    )
+
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
-    permission_classes = (IsAuthorOrReadOnlyPermission,)
-    pagination_class = None
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        IsAuthorOrReadOnlyPermission,
+    )
 
     def get_post_object(self):
-        post_id = self.kwargs.get('post_id')
-        return get_object_or_404(Post, pk=post_id)
+        id_post = self.kwargs.get('post_id')
+        return generics.get_object_or_404(Post, id=id_post)
 
     def perform_create(self, serializer):
         post = self.get_post_object()
@@ -49,18 +64,17 @@ class CommentViewSet(viewsets.ModelViewSet):
             post=post
         )
 
-
-class ListCreateViewSet(
-        mixins.ListModelMixin,
-        mixins.CreateModelMixin,
-        viewsets.GenericViewSet
-):
-    pass
+    def get_queryset(self):
+        id_post = self.kwargs.get('post_id')
+        post = generics.get_object_or_404(Post, id=id_post)
+        return post.comments.all()
 
 
-class FollowViewSet(ListCreateViewSet):
+class FollowViewSet(CustomViewSet):
     serializer_class = FollowSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
     filter_backends = (filters.SearchFilter,)
     search_fields = ('=user__username', '=following__username',)
 

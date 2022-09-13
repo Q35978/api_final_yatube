@@ -1,12 +1,14 @@
 # yatube_api/api/serializers.py
 from rest_framework import serializers
-from rest_framework.relations import SlugRelatedField
 from rest_framework.validators import UniqueTogetherValidator
-from posts.models import Comment, Post, Group, Follow, User
+from posts.models import User, Post, Group, Follow, Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
-    author = SlugRelatedField(slug_field='username', read_only=True)
+    author = serializers.SlugRelatedField(
+        slug_field='username',
+        read_only=True
+    )
 
     class Meta:
         fields = '__all__'
@@ -15,8 +17,10 @@ class PostSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
-        read_only=True, slug_field='username'
+        read_only=True,
+        slug_field='username'
     )
+    post = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         fields = '__all__'
@@ -30,12 +34,12 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class FollowSerializer(serializers.ModelSerializer):
-    user = SlugRelatedField(
+    user = serializers.SlugRelatedField(
         slug_field='username',
         read_only=True,
-        default=serializers.CurrentUserDefault
+        default=serializers.CurrentUserDefault()
     )
-    following = SlugRelatedField(
+    following = serializers.SlugRelatedField(
         slug_field='username',
         read_only=False,
         required=True,
