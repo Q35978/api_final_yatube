@@ -29,9 +29,11 @@
 
 ### Пример запроса к API:
 ```
+/api/v1/group/
+/api/v1/follow/  
 /api/v1/posts/   
-/api/v1/posts/<id>   
+/api/v1/posts/<id>
 /api/v1/posts/<id>/comments 
 /api/v1/posts/<id>/comments/<id>  
-/api/v1/group/ 
-/api/v1/follow/  
+
+ 
