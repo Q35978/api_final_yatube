@@ -1,4 +1,4 @@
-### Пример реализации API на базе Django REST Framework
+# Пример реализации API на базе Django REST Framework
 
 Позволяет работать с моделями базы:
 - Post (публикации);
@@ -6,28 +6,28 @@
 - Comment (комментарии);
 - Follow (подписки).  
 
-### Установка:
--настройте виртуальное окружение
-    ```
+# Установка:
+### -настройте виртуальное окружение
+
     source venv/bin/activate
-    ```
--установите необходимые зависимости
-    ```
+
+### -установите необходимые зависимости
+
     python3 -m pip install --upgrade pip
     pip install -r requirements.txt
-    ```
--разверните базу данных
-    ```
+
+### -разверните базу данных
+
     python3 manage.py makemigrations
     python3 manage.py migrate
-    ```
-- запустите проект
-    ```
+
+### - запустите проект
+
     python manage.py runserver
-    ```
 
 
-### Пример запроса к API:
+
+# Пример запроса к API:
 ```
 /api/v1/group/
 /api/v1/follow/  
