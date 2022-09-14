@@ -1,4 +1,4 @@
-# Пример реализации API на базе Django REST Framework
+### Пример реализации API на базе Django REST Framework
 
 Позволяет работать с моделями базы:
 - Post (публикации);
