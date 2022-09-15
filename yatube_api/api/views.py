@@ -17,19 +17,10 @@ from .serializers import (
 )
 
 
-class CustomViewSet(
-        mixins.ListModelMixin,
-        mixins.CreateModelMixin,
-        viewsets.GenericViewSet
-):
-    pass
-
-
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly,
         IsAuthorOrReadOnlyPermission,
     )
     pagination_class = pagination.LimitOffsetPagination
@@ -49,7 +40,6 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly,
         IsAuthorOrReadOnlyPermission,
     )
 
@@ -65,12 +55,15 @@ class CommentViewSet(viewsets.ModelViewSet):
         )
 
     def get_queryset(self):
-        id_post = self.kwargs.get('post_id')
-        post = generics.get_object_or_404(Post, id=id_post)
+        post = self.get_post_object()
         return post.comments.all()
 
 
-class FollowViewSet(CustomViewSet):
+class FollowViewSet(
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    viewsets.GenericViewSet
+):
     serializer_class = FollowSerializer
     permission_classes = (
         permissions.IsAuthenticated,
