@@ -39,10 +39,10 @@
   body: {
     [
       {
-        "id": integer
-        "title": string  
-        "slug": string
-        "description": string     
+        "id": 1
+        "title": "string"  
+        "slug": "string"
+        "description": "string"     
       }
     ]
   }  
@@ -56,10 +56,10 @@
   **Ответ**
   ```
   body: {
-    "id": integer
-    "title": string  
-    "slug": string
-    "description": string    
+    "id": 1
+    "title": "string"  
+    "slug": "string"
+    "description": "string"    
   }
   ```
 
@@ -71,17 +71,17 @@
   **Ответ**
   ```
   body: {
-  "count": integer,
-  "next": string with http address,
-  "previous": string with http address,
+  "count": 1234,
+  "next": "http://www.example.org/acc/?offset=300&limit=100",
+  "previous": "http://www.example.org/acc/?offset=300&limit=100",
   "results": [
     {
-      "id": integer,
-      "text": string,
-      "pub_date": date-time,
-      "author": string,
-      "group": integer or null,
-      "image": string <binary> or null
+      "id": 1,
+      "text": "string",
+      "pub_date": "2022-09-16T20:01:29.648Z",
+      "author": "string",
+      "group": 1 or null,
+      "image": "string <binary> or null"
     }
   ]
   }
@@ -92,20 +92,20 @@
   ```
   POST /api/v1/posts/
   body: {
-    "text": string,
-    "group": integer or null
-    "image": string <binary> or null,
+    "text": "string",
+    "group": 1 or null
+    "image": "string <binary> or null",
   }
   ```
   **Ответ**
   ```
   body: {
-    "id": integer,
-    "text": string,
-    "pub_date": date-time,
-    "author": string,
-    "group": integer or null,
-    "image": string <binary> or null
+    "id": 1,
+    "text": "string",
+    "pub_date": "2022-09-16T20:01:29.648Z",
+    "author": "string",
+    "group": 1 or null,
+    "image": "string <binary> or null"
   }
   ```
 
@@ -117,12 +117,12 @@
   **Ответ**
   ```
   body: {
-    "id": integer,
-    "text": string,
-    "pub_date": date-time,
-    "author": string,
-    "group": integer or null,
-    "image": string <binary> or null
+    "id": 1,
+    "text": "string",
+    "pub_date": "2022-09-16T20:01:29.648Z",
+    "author": "string",
+    "group": 1 or null,
+    "image": "string <binary> or null"
   }
   ```
 
@@ -131,20 +131,20 @@
   ```
   PUT /api/v1/posts/{id}/
   body: {
-    "text": string,
-    "group": integer or null
-    "image": string <binary> or null,
+    "text": "string",
+    "group": 1 or null
+    "image": "string <binary> or null",
   }
   ```
   **Ответ**
   ```
   body: {
-    "id": integer,
-    "text": string,
-    "pub_date": date-time,
-    "author": string,
-    "group": integer or null,
-    "image": string <binary> or null
+    "id": 1,
+    "text": "string",
+    "pub_date": "2022-09-16T20:01:29.648Z",
+    "author": "string",
+    "group": 1 or null,
+    "image": "string <binary> or null"
   }
   ```
 ### Создание подписки
@@ -152,14 +152,14 @@
   ```
   POST /api/v1/follow/
   body: {
-    "following": string
+    "following": "string"
   }
   ```
   **Ответ**
   ```
   body: {
-    "user": string,
-    "following": string
+    "user": "string",
+    "following": "string"
   }
   ```
 ### Получение всех комментариев к публикации.
@@ -172,11 +172,11 @@
   body: {
     [
         {
-            "id": integer,
-            "author": string,
-            "post": integer,
-            "text": string,
-            "created": date-time
+            "id": 1,
+            "author": "string",
+            "post": 1,
+            "text": "string",
+            "created": "2022-09-16T20:01:29.648Z"
         }
     ]
   }
@@ -186,16 +186,16 @@
   ```
   POST /api/v1/posts/{post_id}/comments/
   body: {
-    "text": string
+    "text": "string"
   }
   ```
   **Ответ**
   ```
   body: {
-    "id": integer,
-    "author": string,
-    "post": integer,
-    "text": string,
-    "created": date-time
+    "id": 1,
+    "author": "string",
+    "post": 1,
+    "text": "string",
+    "created": "2022-09-16T20:01:29.648Z"
   }
   ```
