@@ -1,201 +1,201 @@
-# Пример реализации API на базе Django REST Framework
+# Example of API implementation based on the Django REST Framework Framework
 
-Позволяет работать с моделями базы:
-- Post (публикации);
-- Group (группы);
-- Comment (комментарии);
-- Follow (подписки).  
+Allows you to work with database models:
+- Message (publications);
+- Group(s);
+- Comment (comments);
+- Follow (subscriptions).
 
-# Установка:
-### -настройте виртуальное окружение
+# Installation:
+### -configure the virtual environment
 
-    source venv/bin/activate
+venv/bin/activate source file
 
-### -установите необходимые зависимости
+### -install the necessary dependencies
 
-    python3 -m pip install --upgrade pip
-    pip install -r requirements.txt
+python3 -m pip install --update pip
+installing pip -r requirements.txt
 
-### -разверните базу данных
+### -expand the database
 
-    python3 manage.py makemigrations
-    python3 manage.py migrate
+python3 manage.py perform python3 migrations
+manage.py migrate
 
-### - запустите проект
+### - launch the project
 
-    python manage.py runserver
+python manage.py startup server
 
 
 
-# Пример запроса к API:
+# API request example:
 
-### Список групп
-  **Запрос**
-  ```
-  GET /api/v1/groups/
-  ```
-  **Ответ**
-  ```
-  body: {
-    [
-      {
-        "id": 1
-        "title": "string"  
-        "slug": "string"
-        "description": "string"     
-      }
-    ]
-  }  
-  ```
+### List of groups
+**Request**
+```
+GET /api/v1/groups/
+```
+**Response**
+```
+body: {
+[
+{
+"id": 1
+"title": "string"
+"slug": "string"
+"description": "string"
+}
+]
+}
+```
 
-### Информация о группе
-  **Запрос**
-  ```
-  GET /api/v1/groups/{id}
-  ```
-  **Ответ**
-  ```
-  body: {
-    "id": 1
-    "title": "string"  
-    "slug": "string"
-    "description": "string"    
-  }
-  ```
+### Information about the group
+**Request**
+```
+GET /api/v1/groups/{id}
+```
+**Response**
+```
+case: {
+"id": 1
+"title": "string"
+"slug": "string"
+"description": "string"
+}
+```
 
-### Получение публикаций
-  **Запрос**
-  ```
-  GET /api/v1/posts/
-  ```
-  **Ответ**
-  ```
-  body: {
-  "count": 1234,
-  "next": "http://www.example.org/acc/?offset=300&limit=100",
-  "previous": "http://www.example.org/acc/?offset=300&limit=100",
-  "results": [
-    {
-      "id": 1,
-      "text": "string",
-      "pub_date": "2022-09-16T20:01:29.648Z",
-      "author": "string",
-      "group": 1 or null,
-      "image": "string <binary> or null"
-    }
-  ]
-  }
-  ```
+### Receiving publications
+**Request**
+```
+GET /api/v1/posts/
+```
+**Response**
+```
+housing: {
+"quantity": 1234,
+"next": "http://www.example.org/acc/?offset=300&limit=100 ",
+"previous": "http://www.example.org/acc/?offset=300&limit=100 ",
+"results": [
+{
+"id": 1,
+"text": "string",
+"pub_date": "2022-09-16T20:01:29.648Z",
+"author": "string",
+"group": 1 or null,
+"image": "string <binary> or null"
+}
+]
+}
+```
 
-### Создание публикации
-  **Запрос**
-  ```
-  POST /api/v1/posts/
-  body: {
-    "text": "string",
-    "group": 1 or null
-    "image": "string <binary> or null",
-  }
-  ```
-  **Ответ**
-  ```
-  body: {
-    "id": 1,
-    "text": "string",
-    "pub_date": "2022-09-16T20:01:29.648Z",
-    "author": "string",
-    "group": 1 or null,
-    "image": "string <binary> or null"
-  }
-  ```
+### Creating a publication
+**Request**
+```
+POST /api/v1/messages/
+corpus: {
+"text": "string",
+"group": 1 or null
+"image": "string <binary file> or null",
+}
+```
+**Response**
+```
+body: {
+"id": 1,
+"text": "string",
+"pub_date": "2022-09-16T20:01:29.648Z",
+"author": "string",
+"group": 1 or null,
+"image": "string <binary> or null"
+}
+` `
 
-### Получение публикации по идентификатору
-  **Запрос**
-  ```
-  GET /api/v1/posts/{id}/
-  ```
-  **Ответ**
-  ```
-  body: {
-    "id": 1,
-    "text": "string",
-    "pub_date": "2022-09-16T20:01:29.648Z",
-    "author": "string",
-    "group": 1 or null,
-    "image": "string <binary> or null"
-  }
-  ```
+### Getting a publication by ID
+**Request**
+```
+GET /api/v1/posts/{id}/
+```
+**Response**
+```
+corpus: {
+"id": 1,
+"text": "string",
+"pub_date": "2022-09-16T20:01:29.648Z",
+"author": "string",
+"group": 1 or null,
+"image": "string <binary file> or null"
+}
+``
 
-### Обновление публикации по идентификатору
-  **Запрос**
-  ```
-  PUT /api/v1/posts/{id}/
-  body: {
-    "text": "string",
-    "group": 1 or null
-    "image": "string <binary> or null",
-  }
-  ```
-  **Ответ**
-  ```
-  body: {
-    "id": 1,
-    "text": "string",
-    "pub_date": "2022-09-16T20:01:29.648Z",
-    "author": "string",
-    "group": 1 or null,
-    "image": "string <binary> or null"
-  }
-  ```
-### Создание подписки
-  **Запрос**
-  ```
-  POST /api/v1/follow/
-  body: {
-    "following": "string"
-  }
-  ```
-  **Ответ**
-  ```
-  body: {
-    "user": "string",
-    "following": "string"
-  }
-  ```
-### Получение всех комментариев к публикации.
-  **Запрос**
-  ```
-  GET /api/v1/posts/{post_id}/comments/
-  ```
-  **Ответ**
-  ```
-  body: {
-    [
-        {
-            "id": 1,
-            "author": "string",
-            "post": 1,
-            "text": "string",
-            "created": "2022-09-16T20:01:29.648Z"
-        }
-    ]
-  }
-  ```
-### Добавление нового комментария к публикации. 
-**Запрос**
-  ```
-  POST /api/v1/posts/{post_id}/comments/
-  body: {
-    "text": "string"
-  }
-  ```
-  **Ответ**
-  ```
-  body: {
-    "id": 1,
-    "author": "string",
-    "post": 1,
-    "text": "string",
-    "created": "2022-09-16T20:01:29.648Z"
-  }
-  ```
+### Updating a publication by ID
+**Request**
+```
+PUT /api/v1/posts/{id}/
+body: {
+"text": "string",
+"group": 1 or null
+"image": "string <binary> or null",
+}
+```
+**Response**
+```
+corpus: {
+"id": 1,
+"text": "string",
+"pub_date": "2022-09-16T20:01:29.648Z",
+"author": "string",
+"group": 1 or null,
+"image": "string <binary file> or null"
+}
+``
+### Creating a subscription
+**Request**
+```
+POST /api/v1/follow/
+body: {
+"next": "string"
+}
+``
+**Response**
+```
+corpus: {
+"user": "string",
+"next": "string"
+}
+``
+### Getting all the comments for the publication.
+**Request**
+```
+GET /api/v1/messages/{post_id}/comments/
+``
+**Response**
+```
+corpus: {
+[
+{
+"id": 1,
+"author": "string",
+"message": 1,
+"text": "string",
+"created": "2022-09-16T20:01:29.648 z"
+}
+]
+}
+```
+### Adding a new comment to the post.
+**Request**
+```
+POST /api/v1/messages/{post_id}/comments/
+body: {
+"text": "string"
+}
+``
+**Response**
+```
+body: {
+"id": 1,
+"author": "string",
+"post": 1,
+"text": "string",
+"created": "2022-09-16T20:01:29.648Z"
+}
+``
